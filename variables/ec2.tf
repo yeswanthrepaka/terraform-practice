@@ -1,12 +1,9 @@
-resource "aws_instance" "example" {
-    count = 2
+resource "aws_instance" "roboshop" {
   ami           = var.ami_id
-  instance_type = var.environment == "dev" ? "t3.small" : "t3.small"
+  instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
-  tags = {
-    Name = var.instance_name[count.index]
-  }
+  tags = var.instance_tags
 }
     
 resource "aws_security_group" "allow_tls" {
@@ -28,7 +25,5 @@ description = var.sg_description
         ipv6_cidr_blocks = ["::/0"]
         }
 
-    tags = {
-        name = "terraform-allow-all"
-    }
+    tags = var.sg_tags
 }

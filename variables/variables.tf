@@ -3,7 +3,7 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-    default = "t3.micro"
+    default = "t3.small"
 }
 
 variable "sg_name" {
@@ -26,11 +26,20 @@ variable "cidr_blocks" {
     default = ["0.0.0.0/0"]
 }
 
-variable "instance_name" {
-    type = list(string)
-    default = ["mongodb","catalogue"]
+variable "instance_tags" {
+    default = {
+        Name = "terraform"
+        Project = "roboshop"
+        Terraform = "true"
+        Environment = "dev"
+    }
 }
 
-variable "environment" {
-    default = "prod"
+variable "sg_tags" {
+    default = {
+        Name = "allow-all-terraform"
+        Project = "roboshop"
+        Terraform = "true"
+        Environment = "dev"
+    }
 }
